@@ -1,0 +1,152 @@
+/* Page styling */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+  position: relative; /* for hearts */
+}
+
+.container {
+  text-align: center;
+  z-index: 5; /* keep envelope above hearts */
+}
+
+/* Envelope container */
+.envelope {
+  position: relative;
+  width: 90vw;       /* scales with phone width */
+  max-width: 400px;  /* max size on bigger phones */
+  height: 60vh;      /* takes more vertical space */
+  background: #f06292;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Envelope flap (triangle) */
+.top {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 45vw solid transparent; /* half of envelope width */
+  border-right: 45vw solid transparent;
+  border-top: 25vh solid #ec407a;      /* taller flap */
+  transform-origin: top;
+  transition: transform 0.6s;
+  z-index: 2;
+}
+
+/* Letter inside envelope */
+.letter {
+  position: absolute;
+  bottom: -100%;      /* hidden initially */
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 5vw;       /* bigger padding that scales */
+  box-sizing: border-box;
+  transition: bottom 0.6s;
+  overflow-y: auto;   /* scrollable */
+  border-radius: 0 0 12px 12px;
+}
+
+/* Letter headings and text */
+.letter h1 {
+  color: #f06292;
+  margin: 5px 0;
+  font-size: 6vw;     /* big text */
+}
+
+.letter h2 {
+  color: #ec407a;
+  margin: 5px 0 10px;
+  font-size: 5vw;
+}
+
+.letter .text {
+  color: #444;
+  font-size: 4vw;     /* readable on phone */
+}
+
+.details p {
+  margin: 6px 0;
+  color: #f06292;
+  font-size: 4vw;
+}
+
+.footer {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #f06292;
+  font-size: 4vw;
+}
+
+/* Open animation */
+.envelope.open .top {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+  bottom: 0;
+}
+
+.hint {
+  margin-top: 15px;
+  color: #880e4f;
+  font-weight: bold;
+  font-size: 4vw;
+}
+
+/* Floating hearts */
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1; /* behind envelope */
+}
+
+.heart {
+  position: absolute;
+  font-size: 6vw; /* bigger hearts */
+  animation: float 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); opacity: 0; }
+}
+
+/* Random positions for hearts */
+.heart:nth-child(1) { left: 10%; animation-duration: 5s; animation-delay: 0s; }
+.heart:nth-child(2) { left: 30%; animation-duration: 6s; animation-delay: 1s; }
+.heart:nth-child(3) { left: 50%; animation-duration: 7s; animation-delay: 2s; }
+.heart:nth-child(4) { left: 70%; animation-duration: 5.5s; animation-delay: 0.5s; }
+.heart:nth-child(5) { left: 90%; animation-duration: 6.5s; animation-delay: 1.5s; }
+
+/* For really big screens (tablet/desktop) */
+@media screen and (min-width: 600px) {
+  .envelope {
+    width: 400px;
+    height: 350px;
+  }
+  .top { border-left: 200px solid transparent; border-right: 200px solid transparent; border-top: 150px solid #ec407a; }
+  .letter { padding: 25px; }
+  .letter h1 { font-size: 28px; }
+  .letter h2 { font-size: 24px; }
+  .letter .text { font-size: 18px; }
+  .details p, .footer { font-size: 18px; }
+  .hint { font-size: 18px; }
+  .heart { font-size: 24px; }
+}
